@@ -11,27 +11,23 @@ class Main
 
         int N = sc.nextInt();
 
-        int[][] arr = new int[N][N];
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
-        for(int i = 0; i < N; i++){
-            for (int j = 0; j < N; j++){
-                arr[i][j] = sc.nextInt();
+        for(int i =0; i < N*N; i++){
+            int num = sc.nextInt();
+
+            if(minHeap.size() < N){
+                minHeap.add(num);
             }
-            sc.nextLine();
-        }
-
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-    
-        for(int i = 0; i < N; i++){
-            for (int j = 0; j < N; j++){
-                maxHeap.add(arr[i][j]);
+            else {
+                if(num > minHeap.peek()){
+                    minHeap.poll();
+                    minHeap.add(num);
+                }
             }
         }
 
-        for(int i = 0; i < N-1; i++){
-            maxHeap.poll();
-        }
+        System.out.println(minHeap.peek());
 
-        System.out.println(maxHeap.poll());
     }
 }
